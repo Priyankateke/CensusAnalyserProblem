@@ -67,4 +67,18 @@ public class CensusAnalyserTest {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_TEMPLATE_PROBLEM,e.type);
         }
     }
+
+    /* TC 1.5 : Given the State Census CSV File when correct but
+     csv header incorrect Returns a custom Exception*/
+    @Test
+    public void givenStateCensusCSVFile_WhenIncorrectHeader_ShouldThrowException() {
+        try {
+            ExpectedException expectedException = ExpectedException.none();
+            expectedException.expect(CensusAnalyserException.class);
+            censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_WITH_WRONG_DELIMITER);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_TEMPLATE_PROBLEM,e.type);
+        }
+    }
+
 }
