@@ -1,9 +1,9 @@
 package censusanalyser;
 
-public class CensusAnalyserException extends Throwable{
+public class CensusAnalyserException extends RuntimeException{
 
     public enum ExceptionType {
-        CENSUS_FILE_PROBLEM;
+        CENSUS_FILE_PROBLEM, CENSUS_TEMPLATE_PROBLEM;
     }
 
     ExceptionType type;
