@@ -14,6 +14,7 @@ public class CensusAnalyserTest {
     private static final String INDIAN_STATE_CODE_CSV_FILE_PATH="./src/test/resources/IndiaStateCodeData.csv";
     private static final String INDIAN_STATE_CODE_CSV_WRONG_FILE_PATH="./src/main/resources/IndiaStateCodeData.csv";
     private static final String INDIAN_STATE_CODE_CSV_WRONG_FILE_TYPE="./src/test/resources/IndiaStateCodeData.json";
+    private static final String INDIAN_STATE_CODE_CSV_FILE_WITH_WRONG_DELIMITER="./src/test/resources/IndianStateCodeDataWithWrongDelimiter.csv";
 
     CensusAnalyser censusAnalyser;
 
@@ -117,6 +118,19 @@ public class CensusAnalyserTest {
             censusAnalyser.loadIndianStateCodeData(INDIAN_STATE_CODE_CSV_WRONG_FILE_TYPE);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.STATE_CODE_FILE_PROBLEM,e.type);
+        }
+    }
+
+    /* TC 2.4 : Given the State Code CSV File when correct but
+     delimiter incorrect Returns a custom Exception */
+    @Test
+    public void givenStateCodeCSVFile_WhenIncorrectDelimiter_ShouldThrowException() {
+        try {
+            ExpectedException expectedException = ExpectedException.none();
+            expectedException.expect(CensusAnalyserException.class);
+            censusAnalyser.loadIndianStateCodeData(INDIAN_STATE_CODE_CSV_FILE_WITH_WRONG_DELIMITER);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.STATE_CODE_TEMPLATE_PROBLEM,e.type);
         }
     }
 }
