@@ -133,4 +133,17 @@ public class CensusAnalyserTest {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.STATE_CODE_TEMPLATE_PROBLEM,e.type);
         }
     }
+
+    /* TC 2.5 : Given the State Code CSV File when correct but
+     csv header incorrect Returns a custom Exception*/
+    @Test
+    public void givenStateCodeCSVFile_WhenIncorrectHeader_ShouldThrowException() {
+        try {
+            ExpectedException expectedException = ExpectedException.none();
+            expectedException.expect(CensusAnalyserException.class);
+            censusAnalyser.loadIndianStateCodeData(INDIAN_STATE_CODE_CSV_FILE_WITH_WRONG_DELIMITER);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.STATE_CODE_TEMPLATE_PROBLEM,e.type);
+        }
+    }
 }
