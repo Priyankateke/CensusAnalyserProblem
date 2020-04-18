@@ -13,6 +13,7 @@ public class CensusAnalyserTest {
     private static final String INDIA_CENSUS_CSV_FILE_WITH_WRONG_DELIMITER="./src/test/resources/IndiaStateCensusDataWithWrongDelimiter.csv";
     private static final String INDIAN_STATE_CODE_CSV_FILE_PATH="./src/test/resources/IndiaStateCodeData.csv";
     private static final String INDIAN_STATE_CODE_CSV_WRONG_FILE_PATH="./src/main/resources/IndiaStateCodeData.csv";
+    private static final String INDIAN_STATE_CODE_CSV_WRONG_FILE_TYPE="./src/test/resources/IndiaStateCodeData.json";
 
     CensusAnalyser censusAnalyser;
 
@@ -47,7 +48,7 @@ public class CensusAnalyserTest {
     /* TC 1.3 : Given the State Census CSV File when correct
     but type incorrect Returns a custom Exception */
     @Test
-    public void givenStateCensusCsvFile_WhenTypeIncorrect_ShouldThrowException() {
+    public void givenStateCensusCsvFile_WhenIncorrectType_ShouldThrowException() {
         try {
             ExpectedException expectedException = ExpectedException.none();
             expectedException.expect(CensusAnalyserException.class);
@@ -101,6 +102,19 @@ public class CensusAnalyserTest {
             ExpectedException exceptionRule = ExpectedException.none();
             exceptionRule.expect(CensusAnalyserException.class);
             censusAnalyser.loadIndianStateCodeData(INDIAN_STATE_CODE_CSV_WRONG_FILE_PATH);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.STATE_CODE_FILE_PROBLEM,e.type);
+        }
+    }
+
+    /* TC 2.3 : Given the State Code CSV File when correct
+    but type incorrect Returns a custom Exception */
+    @Test
+    public void givenStateCodeCsvFile_WhenIncorrectType_ShouldThrowException() {
+        try {
+            ExpectedException expectedException = ExpectedException.none();
+            expectedException.expect(CensusAnalyserException.class);
+            censusAnalyser.loadIndianStateCodeData(INDIAN_STATE_CODE_CSV_WRONG_FILE_TYPE);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.STATE_CODE_FILE_PROBLEM,e.type);
         }
