@@ -32,7 +32,8 @@ public class CensusAnalyser {
             throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.CENSUS_TEMPLATE_PROBLEM);
         }
     }
-   public int loadIndianStateCodeData(String csvFilePath) throws CensusAnalyserException {
+
+    public int loadIndianStateCodeData(String csvFilePath) throws CensusAnalyserException {
         try {
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
             CsvToBeanBuilder<IndiaStateCodeCSV> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
@@ -49,7 +50,7 @@ public class CensusAnalyser {
             return numberOfEnteries;
         } catch (IOException e) {
             throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+                    CensusAnalyserException.ExceptionType.STATE_CODE_FILE_PROBLEM);
         }
     }
 }
