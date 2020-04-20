@@ -6,10 +6,10 @@ public class CSVBuilderException extends Exception {
         UNABLE_TO_PARSE
     }
 
-    CSVBuilderException.ExceptionType type;
+    CSVBuilderException.ExceptionType Etype;
 
-    public CSVBuilderException(String message, CSVBuilderException.ExceptionType type) {
+    public CSVBuilderException(String message, CSVBuilderException.ExceptionType Etype) {
         super(message);
-        this.type = type;
+        this.Etype = Etype;
     }
 }
