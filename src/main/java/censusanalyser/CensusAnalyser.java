@@ -21,7 +21,10 @@ public class CensusAnalyser {
         } catch (RuntimeException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CSV_TEMPLATE_PROBLEM);
+        } catch (CSVBuilderException e) {
+            e.printStackTrace();
         }
+        return 0;
     }
 
     public int loadIndianStateCodeData(String csvFilePath) throws CensusAnalyserException {
@@ -36,7 +39,10 @@ public class CensusAnalyser {
         } catch (RuntimeException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CSV_TEMPLATE_PROBLEM);
+        } catch (CSVBuilderException e) {
+            e.printStackTrace();
         }
+        return 0;
     }
 
     /* Function To get number of entries in csv file*/
