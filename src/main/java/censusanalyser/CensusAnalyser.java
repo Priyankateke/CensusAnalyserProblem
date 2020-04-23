@@ -22,9 +22,10 @@ public class CensusAnalyser {
     /* Loading Indian Census Data */
     public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
-           ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
 
+            ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<IndiaCensusCSV> censusCsvIterator = csvBuilder.getCSVFileIterator(reader,IndiaCensusCSV.class);
+
             while (censusCsvIterator.hasNext()) {
                 IndiaCensusCSV indiaCensusCsv = censusCsvIterator.next();
                 censusMap.put(indiaCensusCsv.state,new IndiaCensusDTO(indiaCensusCsv));
@@ -47,16 +48,14 @@ public class CensusAnalyser {
     /* Loading Indian State Code Data */
     public int loadIndianStateCodeData(String csvFilePath) throws CensusAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
+
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-
             Iterator<IndiaStateCodeCSV> stateCodeCSVIterator = csvBuilder.getCSVFileIterator(reader, IndiaStateCodeCSV.class);
-            while (stateCodeCSVIterator.hasNext()) {
-                IndiaStateCodeCSV indiaStateCodeCSV = stateCodeCSVIterator.next();
-                censusMap.put(indiaStateCodeCSV.state,new IndiaCensusDTO(indiaStateCodeCSV));
-            }
-            indiaCensusDTOList = censusMap.values().stream().collect(Collectors.toList());
+            Iterable<IndiaStateCodeCSV> csvIterable = () -> stateCodeCSVIterator;
+            StreamSupport.stream(csvIterable.spliterator(), false)
+                    .filter(csvState -> censusMap.get(csvState.state) != null)
+                    .forEach(csvState -> censusMap.get(csvState.state).stateCode = csvState.stateCode);
             return censusMap.size();
-
         } catch (IOException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CSV_FILE_PROBLEM);
