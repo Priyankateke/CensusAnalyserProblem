@@ -15,12 +15,8 @@ public class CensusAnalyser {
     Map<String, IndiaCensusDTO> censusMap;
     List<IndiaCensusDTO> indiaCensusDTOList;
 
-    Map<String, IndiaStateCodeDTO> stateCodeMap;
-    List<IndiaStateCodeDTO> indiaStateCodeDTOList;
-
     public CensusAnalyser() {
         censusMap = new HashMap<>();
-        stateCodeMap = new HashMap<>();
     }
 
     /* Loading Indian Census Data */
@@ -56,10 +52,11 @@ public class CensusAnalyser {
             Iterator<IndiaStateCodeCSV> stateCodeCSVIterator = csvBuilder.getCSVFileIterator(reader, IndiaStateCodeCSV.class);
             while (stateCodeCSVIterator.hasNext()) {
                 IndiaStateCodeCSV indiaStateCodeCSV = stateCodeCSVIterator.next();
-                stateCodeMap.put(indiaStateCodeCSV.state,new IndiaStateCodeDTO(indiaStateCodeCSV));
+                censusMap.put(indiaStateCodeCSV.state,new IndiaCensusDTO(indiaStateCodeCSV));
             }
-            indiaStateCodeDTOList = stateCodeMap.values().stream().collect(Collectors.toList());
-            return stateCodeMap.size();
+            indiaCensusDTOList = censusMap.values().stream().collect(Collectors.toList());
+            return censusMap.size();
+
         } catch (IOException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CSV_FILE_PROBLEM);

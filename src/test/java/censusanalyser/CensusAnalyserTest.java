@@ -87,12 +87,13 @@ public class CensusAnalyserTest {
         }
     }
 
-    /* TC 2.1 : Given the States Code CSV file, Check to ensure the Number of Record matches */
+    /* TC 2.1, Refactor 7 : Given the States Code CSV file, Check to ensure the Number of Record matches */
     @Test
     public void givenIndianStateCodeCSV_ShouldReturnExactCount() {
         try {
-            int numOfRecords = censusAnalyser.loadIndianStateCodeData(INDIAN_STATE_CODE_CSV_FILE_PATH);
-            Assert.assertEquals(37,numOfRecords);
+            censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+            int numberOfRecord = censusAnalyser.loadIndianStateCodeData(INDIAN_STATE_CODE_CSV_FILE_PATH);
+            Assert.assertEquals(37,numberOfRecord);
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
@@ -170,6 +171,32 @@ public class CensusAnalyserTest {
             String sortedCensusData = censusAnalyser.getStateWiseSortedCensusData(INDIA_CENSUS_CSV_FILE_PATH);
             IndiaCensusCSV[] censusCsv = new Gson().fromJson(sortedCensusData,IndiaCensusCSV[].class);
             Assert.assertEquals("West Bengal",censusCsv[28].state);
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /* TC 4.1 : Given India State Code Data when sorted should return start State Code of sorted data */
+    @Test
+    public void givenIndiaStateCode_whenSorted_shouldReturnSortedDataStartState() {
+        try {
+            censusAnalyser.loadIndianStateCodeData(INDIAN_STATE_CODE_CSV_FILE_PATH);
+            String sortedCensusData = censusAnalyser.getStateWiseSortedCensusData(INDIAN_STATE_CODE_CSV_FILE_PATH);
+            IndiaStateCodeCSV[] indiaStateCodeCVS = new Gson().fromJson(sortedCensusData,IndiaStateCodeCSV[].class);
+            Assert.assertEquals("AN", indiaStateCodeCVS[0].stateCode);
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /* TC 4.2 : Given India State Code Data when sorted should return end State Code of sorted data */
+    @Test
+    public void givenIndiaStateCodeData_whenSorted_shouldReturnSortedDataEndState() {
+        try {
+            censusAnalyser.loadIndianStateCodeData(INDIAN_STATE_CODE_CSV_FILE_PATH);
+            String sortedCensusData = censusAnalyser.getStateWiseSortedCensusData(INDIAN_STATE_CODE_CSV_FILE_PATH);
+            IndiaStateCodeCSV[] indiaStateCodeCVS = new Gson().fromJson(sortedCensusData,IndiaStateCodeCSV[].class);
+            Assert.assertEquals("WB",indiaStateCodeCVS[36].stateCode);
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
