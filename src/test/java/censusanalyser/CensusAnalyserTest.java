@@ -25,7 +25,7 @@ public class CensusAnalyserTest {
         censusAnalyser = new CensusAnalyser();
     }
 
-    /* TC 1.1 : Given the States Census CSV file, Check to ensure the Number of Record matches */
+    /* Given the States Census CSV file, Check to ensure the Number of Record matches */
     @Test
     public void givenIndianCensusCSVFileReturnsCorrectRecords() {
         try {
@@ -36,7 +36,7 @@ public class CensusAnalyserTest {
         }
     }
 
-    /* TC 1.2 : Given the State Census CSV File if incorrect Returns a custom Exception */
+    /* Given the State Census CSV File if incorrect Returns a custom Exception */
     @Test
     public void givenIndiaCensusData_WhenWrongFilePath_ShouldThrowException() {
         try {
@@ -48,7 +48,7 @@ public class CensusAnalyserTest {
         }
     }
 
-    /* TC 1.3 : Given the State Census CSV File when correct
+    /* Given the State Census CSV File when correct
     but type incorrect Returns a custom Exception */
     @Test
     public void givenStateCensusCsvFile_WhenIncorrectType_ShouldThrowException() {
@@ -61,7 +61,7 @@ public class CensusAnalyserTest {
         }
     }
 
-     /*TC 1.4 : Given the State Census CSV File when correct but
+     /* Given the State Census CSV File when correct but
      delimiter incorrect Returns a custom Exception */
     @Test
     public void givenStateCensusCSVFile_WhenIncorrectDelimiter_ShouldThrowException() {
@@ -74,8 +74,8 @@ public class CensusAnalyserTest {
         }
     }
 
-    /* TC 1.5 : Given the State Census CSV File when correct but
-     csv header incorrect Returns a custom Exception*/
+    /* Given the State Census CSV File when correct but
+     csv header incorrect Returns a custom Exception */
     @Test
     public void givenStateCensusCSVFile_WhenIncorrectHeader_ShouldThrowException() {
         try {
@@ -87,7 +87,7 @@ public class CensusAnalyserTest {
         }
     }
 
-    /* TC 2.1, Refactor 7 : Given the States Code CSV file, Check to ensure the Number of Record matches */
+    /* Given the States Code CSV file, Check to ensure the Number of Record matches*/
     @Test
     public void givenIndianStateCodeCSV_ShouldReturnExactCount() {
         try {
@@ -99,7 +99,7 @@ public class CensusAnalyserTest {
         }
     }
 
-    /* TC 2.2 : Given the State Code CSV File if incorrect Returns a custom Exception */
+    /* Given the State Code CSV File if incorrect Returns a custom Exception */
     @Test
     public void givenIndiaStateCodeData_WhenWrongFilePath_ShouldThrowException() {
         try {
@@ -111,7 +111,7 @@ public class CensusAnalyserTest {
         }
     }
 
-     /*TC 2.3 : Given the State Code CSV File when correct
+     /* Given the State Code CSV File when correct
     but type incorrect Returns a custom Exception */
     @Test
     public void givenStateCodeCsvFile_WhenIncorrectType_ShouldThrowException() {
@@ -124,7 +124,7 @@ public class CensusAnalyserTest {
         }
     }
 
-     /*TC 2.4 : Given the State Code CSV File when correct but
+     /* Given the State Code CSV File when correct but
      delimiter incorrect Returns a custom Exception */
     @Test
     public void givenStateCodeCSVFile_WhenIncorrectDelimiter_ShouldThrowException() {
@@ -137,7 +137,7 @@ public class CensusAnalyserTest {
         }
     }
 
-   /*  TC 2.5 : Given the State Code CSV File when correct but
+   /* Given the State Code CSV File when correct but
      csv header incorrect Returns a custom Exception*/
     @Test
     public void givenStateCodeCSVFile_WhenIncorrectHeader_ShouldThrowException() {
@@ -150,7 +150,7 @@ public class CensusAnalyserTest {
         }
     }
 
-     /*TC 3.1 : Given India Census Data when sorted should return start State of sorted data*/
+     /* Given India Census Data when sorted should return start State of sorted data*/
     @Test
     public void givenIndiaCensusData_whenSorted_shouldReturnSortedDataStartState() {
         try {
@@ -163,7 +163,7 @@ public class CensusAnalyserTest {
         }
     }
 
-    /* TC 3.2 : Given India Census Data when sorted should return end State of sorted data */
+    /* Given India Census Data when sorted should return end State of sorted data */
     @Test
     public void givenIndiaCensusData_whenSorted_shouldReturnSortedDataEndState() {
         try {
@@ -171,6 +171,19 @@ public class CensusAnalyserTest {
             String sortedCensusData = censusAnalyser.getStateWiseSortedCensusData(INDIA_CENSUS_CSV_FILE_PATH);
             IndiaCensusCSV[] censusCsv = new Gson().fromJson(sortedCensusData,IndiaCensusCSV[].class);
             Assert.assertEquals("West Bengal",censusCsv[28].state);
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /* Given India Census Data when sorted should return population of sorted data */
+    @Test
+    public void givenIndiaCensusData_whenSorted_shouldReturnSortedStartPopulationState() {
+        try {
+            censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+            String sortedCensusData = censusAnalyser.getPopulationWiseSortedCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+            IndiaCensusCSV[] censusCsv = new Gson().fromJson(sortedCensusData,IndiaCensusCSV[].class);
+            Assert.assertEquals(607688,censusCsv[0].population);
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,6 @@
 package censusanalyser;
 
-public class IndiaCensusDTO {
+public class IndiaCensusDAO {
     public String state;
     public String stateCode;
     public long population;
@@ -9,14 +9,14 @@ public class IndiaCensusDTO {
 
     public int tin;
 
-    public IndiaCensusDTO(IndiaCensusCSV indiaCensusCSV) {
+    public IndiaCensusDAO(IndiaCensusCSV indiaCensusCSV) {
         state=indiaCensusCSV.state;
         population=indiaCensusCSV.population;
         areaInSqKm=indiaCensusCSV.areaInSqKm;
         densityPerSqKm=indiaCensusCSV.densityPerSqKm;
     }
 
-    public IndiaCensusDTO(IndiaStateCodeCSV indiaStateCodeCSV) {
+    public IndiaCensusDAO(IndiaStateCodeCSV indiaStateCodeCSV) {
         state=indiaStateCodeCSV.state;
         tin=indiaStateCodeCSV.tin;
         stateCode=indiaStateCodeCSV.stateCode;
