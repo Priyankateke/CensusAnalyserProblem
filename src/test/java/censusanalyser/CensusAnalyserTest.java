@@ -61,7 +61,7 @@ public class CensusAnalyserTest {
         }
     }
 
-    /* TC 1.4 : Given the State Census CSV File when correct but
+     /*TC 1.4 : Given the State Census CSV File when correct but
      delimiter incorrect Returns a custom Exception */
     @Test
     public void givenStateCensusCSVFile_WhenIncorrectDelimiter_ShouldThrowException() {
@@ -110,7 +110,7 @@ public class CensusAnalyserTest {
         }
     }
 
-    /* TC 2.3 : Given the State Code CSV File when correct
+     /*TC 2.3 : Given the State Code CSV File when correct
     but type incorrect Returns a custom Exception */
     @Test
     public void givenStateCodeCsvFile_WhenIncorrectType_ShouldThrowException() {
@@ -123,7 +123,7 @@ public class CensusAnalyserTest {
         }
     }
 
-    /* TC 2.4 : Given the State Code CSV File when correct but
+     /*TC 2.4 : Given the State Code CSV File when correct but
      delimiter incorrect Returns a custom Exception */
     @Test
     public void givenStateCodeCSVFile_WhenIncorrectDelimiter_ShouldThrowException() {
@@ -136,7 +136,7 @@ public class CensusAnalyserTest {
         }
     }
 
-    /* TC 2.5 : Given the State Code CSV File when correct but
+   /*  TC 2.5 : Given the State Code CSV File when correct but
      csv header incorrect Returns a custom Exception*/
     @Test
     public void givenStateCodeCSVFile_WhenIncorrectHeader_ShouldThrowException() {
@@ -149,7 +149,7 @@ public class CensusAnalyserTest {
         }
     }
 
-    /* TC 3.1 : Given India Census Data when sorted should return start State of sorted data*/
+     /*TC 3.1 : Given India Census Data when sorted should return start State of sorted data*/
     @Test
     public void givenIndiaCensusData_whenSorted_shouldReturnSortedDataStartState() {
         try {
@@ -160,7 +160,6 @@ public class CensusAnalyserTest {
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
-
     }
 
     /* TC 3.2 : Given India Census Data when sorted should return end State of sorted data */
@@ -171,32 +170,6 @@ public class CensusAnalyserTest {
             String sortedCensusData = censusAnalyser.getStateWiseSortedCensusData(INDIA_CENSUS_CSV_FILE_PATH);
             IndiaCensusCSV[] censusCsv = new Gson().fromJson(sortedCensusData,IndiaCensusCSV[].class);
             Assert.assertEquals("West Bengal",censusCsv[28].state);
-        } catch (CensusAnalyserException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /* TC 4.1 : Given India State Code Data when sorted should return Start State Code of sorted data */
-    @Test
-    public void givenIndiaStateCode_whenSorted_shouldReturnSortedDataStartCode() {
-        try {
-            censusAnalyser.loadIndianStateCodeData(INDIAN_STATE_CODE_CSV_FILE_PATH);
-            String sortedCensusData = censusAnalyser.getStateCodeWiseSortedData(INDIAN_STATE_CODE_CSV_FILE_PATH);
-            IndiaStateCodeCSV[] codeCsv = new Gson().fromJson(sortedCensusData,IndiaStateCodeCSV[].class);
-            Assert.assertEquals("AD",codeCsv[0].stateCode);
-        } catch (CensusAnalyserException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /* TC 4.2 : Given India State Code Data when sorted should return End State Code of sorted data */
-    @Test
-    public void givenIndiaStateCode_whenSorted_shouldReturnSortedDataEndCode() {
-        try {
-            censusAnalyser.loadIndianStateCodeData(INDIAN_STATE_CODE_CSV_FILE_PATH);
-            String sortedStateCodeData = censusAnalyser.getStateCodeWiseSortedData(INDIAN_STATE_CODE_CSV_FILE_PATH);
-            IndiaStateCodeCSV[] codeCsv = new Gson().fromJson(sortedStateCodeData,IndiaStateCodeCSV[].class);
-            Assert.assertEquals("WB",codeCsv[36].stateCode);
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
