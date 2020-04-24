@@ -16,9 +16,9 @@ public class IndiaCensusDAO {
         densityPerSqKm=indiaCensusCSV.densityPerSqKm;
     }
 
-    public IndiaCensusDAO(IndiaStateCodeCSV indiaStateCodeCSV) {
+  /*  public IndiaCensusDAO(IndiaStateCodeCSV indiaStateCodeCSV) {
         state=indiaStateCodeCSV.state;
         tin=indiaStateCodeCSV.tin;
         stateCode=indiaStateCodeCSV.stateCode;
-    }
+    }*/
 }
