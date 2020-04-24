@@ -17,6 +17,7 @@ public class CensusAnalyserTest {
     private static final String INDIAN_STATE_CODE_CSV_WRONG_FILE_PATH="./src/main/resources/IndiaStateCodeData.csv";
     private static final String INDIAN_STATE_CODE_CSV_WRONG_FILE_TYPE="./src/test/resources/IndiaStateCodeData.json";
     private static final String INDIAN_STATE_CODE_CSV_FILE_WITH_WRONG_DELIMITER="./src/test/resources/IndianStateCodeDataWithWrongDelimiter.csv";
+    private static final String US_CENSUS_CSV_FILE_PATH = "src/test/resources/USCensusData.csv";
 
     CensusAnalyser censusAnalyser;
 
@@ -210,6 +211,43 @@ public class CensusAnalyserTest {
             String sortedCensusData = censusAnalyser.getAreaWiseSortedCensusData();
             IndiaCensusCSV[] censusCsv = new Gson().fromJson(sortedCensusData,IndiaCensusCSV[].class);
             Assert.assertEquals("Goa",censusCsv[0].state);
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /* Given India State Code Data when sorted should return start State Code of sorted data */
+    @Test
+    public void givenIndiaStateCode_whenSorted_shouldReturnSortedDataStartState() {
+        try {
+            censusAnalyser.loadIndianStateCodeData(INDIAN_STATE_CODE_CSV_FILE_PATH);
+            String sortedCensusData = censusAnalyser.getStateWiseSortedCensusData();
+            IndiaStateCodeCSV[] indiaStateCodeCVS = new Gson().fromJson(sortedCensusData,IndiaStateCodeCSV[].class);
+            Assert.assertEquals("AN", indiaStateCodeCVS[0].stateCode);
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+   /* Given India State Code Data when sorted should return end State Code of sorted data */
+    @Test
+    public void givenIndiaStateCodeData_whenSorted_shouldReturnSortedDataEndState() {
+        try {
+            censusAnalyser.loadIndianStateCodeData(INDIAN_STATE_CODE_CSV_FILE_PATH);
+            String sortedCensusData = censusAnalyser.getStateWiseSortedCensusData();
+            IndiaStateCodeCSV[] indiaStateCodeCVS = new Gson().fromJson(sortedCensusData,IndiaStateCodeCSV[].class);
+            Assert.assertEquals("WB",indiaStateCodeCVS[36].stateCode);
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /* Given US Census Data should return number of records */
+    @Test
+    public void givenUSCensusDataCSV_ShouldReturnCorrectRecords() {
+        try {
+            int numOfRecords = censusAnalyser.loadUsCensusData(US_CENSUS_CSV_FILE_PATH);
+            Assert.assertEquals(51, numOfRecords);
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
