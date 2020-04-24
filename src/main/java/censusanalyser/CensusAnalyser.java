@@ -125,6 +125,15 @@ public class CensusAnalyser {
         return sortedCensusJson;
     }
 
+    public String getUsStateSortedCensusData(String csvFilePath) throws CensusAnalyserException {
+        if(censusDAOList.size()==0 || censusDAOList==null)
+            throw new CensusAnalyserException("No Census Data",CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
+        Comparator<CensusDAO> censusDaoComparator = Comparator.comparing(census -> census.state);
+        this.sort(censusDaoComparator);
+        String sortedCensusJson = new Gson().toJson(censusDAOList);
+        return sortedCensusJson;
+    }
+
     /* Function To Sort States */
     private void sort(Comparator<CensusDAO> indiaCensusCsvComparator) {
         for (int i = 0; i < censusDAOList.size()-1; i++) {
