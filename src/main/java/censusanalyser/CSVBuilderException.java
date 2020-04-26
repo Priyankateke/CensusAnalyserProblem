@@ -1,6 +1,6 @@
 package censusanalyser;
 
-public class CSVBuilderException extends Exception {
+public class CSVBuilderException extends RuntimeException {
 
     enum ExceptionType {
         UNABLE_TO_PARSE
