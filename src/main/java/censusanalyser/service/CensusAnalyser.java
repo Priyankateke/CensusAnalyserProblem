@@ -1,15 +1,22 @@
-package censusanalyser;
+package censusanalyser.service;
 
+import censusanalyser.exception.CensusAnalyserException;
+import censusanalyser.DAO.CensusDAO;
+import censusanalyser.sortenum.SortField;
+import censusanalyser.adapter.CensusAdapterFactory;
 import com.google.gson.Gson;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class CensusAnalyser {
 
+    /** Enum For Countries*/
     public enum Country {INDIA, US}
 
     Map<String, CensusDAO> censusMap;
+
     Map<SortField, Comparator<CensusDAO>> sortMap = null;
+
     List<CensusDAO> censusDTOList;
 
     public CensusAnalyser() {
@@ -31,7 +38,10 @@ public class CensusAnalyser {
             throw new CensusAnalyserException("No Census Data",
                     CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
         }
+        //Map to List using collectors.toList()
         censusDTOList = censusMap.values().stream().collect(Collectors.toList());
+
+        //reversed(): In reversed order
         this.sort(this.sortMap.get(sortField).reversed());
         String sortedStateCensusJson = new Gson().toJson(censusDTOList);
         return sortedStateCensusJson;

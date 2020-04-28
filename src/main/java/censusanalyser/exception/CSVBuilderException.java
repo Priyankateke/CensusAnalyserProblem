@@ -1,8 +1,8 @@
-package censusanalyser;
+package censusanalyser.exception;
 
 public class CSVBuilderException extends RuntimeException {
 
-    enum ExceptionType {
+    public enum ExceptionType {
         UNABLE_TO_PARSE
     }
 

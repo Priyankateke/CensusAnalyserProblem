@@ -1,4 +1,11 @@
-package censusanalyser;
+package censusanalyser.adapter;
+
+import censusanalyser.DAO.CensusDAO;
+import censusanalyser.DTO.IndiaCensusCSV;
+import censusanalyser.DTO.IndiaStateCodeCSV;
+import censusanalyser.builder.CSVBuilderFactory;
+import censusanalyser.builder.ICSVBuilder;
+import censusanalyser.exception.CensusAnalyserException;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -12,7 +19,7 @@ import java.util.stream.StreamSupport;
 
 public class IndianCensusAdapter extends CensusAdapter {
 
-   public Map<String, CensusDAO> censusMap;
+    public Map<String, CensusDAO> censusMap;
     List<CensusDAO> censusDAOList;
 
     @Override
@@ -26,8 +33,10 @@ public class IndianCensusAdapter extends CensusAdapter {
             CensusAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+
             Iterator<IndiaStateCodeCSV> stateCodeCSVIterator = csvBuilder.getCSVFileIterator(reader, IndiaStateCodeCSV.class);
             Iterable<IndiaStateCodeCSV> csvIterable = () -> stateCodeCSVIterator;
+
             StreamSupport.stream(csvIterable.spliterator(), false)
                     .filter(csvState -> this.censusMap.get(csvState.state) != null)
                     .forEach(csvState -> this.censusMap.get(csvState.state).stateCode = csvState.stateCode);

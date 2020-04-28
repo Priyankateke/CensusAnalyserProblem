@@ -1,4 +1,8 @@
-package censusanalyser;
+package censusanalyser.adapter;
+
+import censusanalyser.DAO.CensusDAO;
+import censusanalyser.exception.CensusAnalyserException;
+import censusanalyser.service.CensusAnalyser;
 
 import java.util.Map;
 

@@ -1,5 +1,9 @@
 package censusanalyser;
 
+import censusanalyser.DAO.CensusDAO;
+import censusanalyser.exception.CensusAnalyserException;
+import censusanalyser.service.CensusAnalyser;
+import censusanalyser.sortenum.SortField;
 import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.BeforeClass;

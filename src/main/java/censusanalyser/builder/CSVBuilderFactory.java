@@ -1,6 +1,6 @@
-package censusanalyser;
+package censusanalyser.builder;
 
-/** For Creating Object On OpenCSVBuilder*/
+/** For Creating Object Of OpenCSVBuilder*/
 public class CSVBuilderFactory {
     public static ICSVBuilder createCSVBuilder() {
         return new OpenCSVBuilder();

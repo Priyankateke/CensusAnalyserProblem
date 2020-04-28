@@ -1,4 +1,7 @@
-package censusanalyser;
+package censusanalyser.DAO;
+
+import censusanalyser.DTO.IndiaCensusCSV;
+import censusanalyser.DTO.UsCensusCSV;
 
 public class CensusDAO {
 
