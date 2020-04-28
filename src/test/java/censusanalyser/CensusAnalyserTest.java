@@ -256,4 +256,16 @@ public class CensusAnalyserTest {
         Assert.assertEquals("WY", censusCSV[0].stateCode);
     }
 
+    @Test
+    public void givenUSAndIndiaCensusData_WhenSortedOnPopulationDensity_ShouldReturnSortedResult() {
+        censusAnalyser.loadCensusData(CensusAnalyser.Country.US, US_CENSUS_CSV_FILE_PATH);
+        String sortedCensusData = censusAnalyser.getStateWiseSortedCensusData(SortField.POPULATIONSDENSITY);
+        CensusDAO[] usCensusCSV = new Gson().fromJson(sortedCensusData, CensusDAO[].class);
+
+        censusAnalyser.loadCensusData(CensusAnalyser.Country.INDIA, INDIA_CENSUS_CSV_FILE_PATH, INDIAN_STATE_CODE_CSV_FILE_PATH);
+        String sortedIndiaCensusData = censusAnalyser.getStateWiseSortedCensusData(SortField.POPULATIONSDENSITY);
+        CensusDAO[] indiaCensusCSV = new Gson().fromJson(sortedIndiaCensusData, CensusDAO[].class);
+
+        Assert.assertEquals(true, usCensusCSV[0].population < indiaCensusCSV[0].population);
+    }
 }
