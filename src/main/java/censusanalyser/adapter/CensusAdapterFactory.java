@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class CensusAdapterFactory {
 
-    public static Map<String, CensusDAO> getCensesAdapter(CensusAnalyser.Country country, String... csvFilePath) {
+    public static Map<String, CensusDAO> getCensusAdapter(CensusAnalyser.Country country, String... csvFilePath) {
         if (country.equals(CensusAnalyser.Country.INDIA))
             return new IndianCensusAdapter().loadCensusData(csvFilePath);
         else if (country.equals(CensusAnalyser.Country.US))

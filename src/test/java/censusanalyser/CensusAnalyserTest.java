@@ -110,7 +110,7 @@ public class CensusAnalyserTest {
         try {
             ExpectedException expectedException = ExpectedException.none();
             expectedException.expect(CensusAnalyserException.class);
-            censusAnalyser.loadCensusData(CensusAnalyser.Country.INDIA,INDIAN_STATE_CODE_CSV_WRONG_FILE_PATH);
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.INDIA,INDIAN_STATE_CODE_CSV_WRONG_FILE_TYPE);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.CSV_FILE_PROBLEM,e.type);
         }

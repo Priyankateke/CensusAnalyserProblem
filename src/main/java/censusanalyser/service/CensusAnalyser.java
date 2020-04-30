@@ -29,7 +29,7 @@ public class CensusAnalyser {
     }
 
     public int loadCensusData(Country country, String... csvFilePath) throws CensusAnalyserException {
-        censusMap = CensusAdapterFactory.getCensesAdapter(country, csvFilePath);
+        censusMap = CensusAdapterFactory.getCensusAdapter(country, csvFilePath);
         return censusMap.size();
     }
 
@@ -45,7 +45,6 @@ public class CensusAnalyser {
         this.sort(this.sortMap.get(sortField).reversed());
         String sortedStateCensusJson = new Gson().toJson(censusDTOList);
         return sortedStateCensusJson;
-
     }
 
     /** Sort Function To sort Data*/
